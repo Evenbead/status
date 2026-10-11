@@ -1,0 +1,62 @@
+/* Evenbead status page (status.evenbead.com). Brand: brand/BRAND.md. Mobile first; light and dark from the system. */
+@font-face {
+  font-family: "Plus Jakarta Sans";
+  src: url("fonts/PlusJakartaSans-Variable.ttf") format("truetype");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --ink: #14181a; --paper: #ffffff; --muted: #56615c; --line: #dfe4e1; --soft: #f4f6f5;
+  --accent: #17684a; --ok-soft: #e4f1eb; --warn: #7f5300; --warn-soft: #fbf1df; --bad: #a8322d; --bad-soft: #fbe9e8;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #f2f4f3; --paper: #14181a; --muted: #a6b0ab; --line: #2c3431; --soft: #1b2120;
+    --accent: #6fcf9f; --ok-soft: #1b3229; --warn: #f0b75a; --warn-soft: #33290f; --bad: #ff8f86; --bad-soft: #3a1f1d; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.55; color: var(--ink); background: var(--paper); }
+a { color: var(--accent); text-underline-offset: 2px; }
+a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.i { width: 1.25em; height: 1.25em; flex: none; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+header { border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; min-height: 60px; gap: 12px; }
+.brand { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.15rem; }
+.brand .logo { width: 28px; height: 28px; }
+.brand small { color: var(--muted); font-weight: 500; font-size: .95rem; }
+header nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 8px; }
+main { padding: 24px 0 48px; }
+h1 { font-size: 1.6rem; margin: 0 0 16px; }
+h2 { font-size: 1.2rem; margin: 32px 0 10px; }
+.current { display: flex; gap: 14px; align-items: flex-start; padding: 18px; border-radius: 12px; border: 1px solid var(--line); background: var(--soft); }
+.current .i { width: 32px; height: 32px; margin-top: 2px; }
+.current[data-state="ok"] { background: var(--ok-soft); border-color: var(--accent); }
+.current[data-state="ok"] .i { color: var(--accent); }
+.current[data-state="degraded"] { background: var(--warn-soft); border-color: var(--warn); }
+.current[data-state="degraded"] .i { color: var(--warn); }
+.current[data-state="down"] { background: var(--bad-soft); border-color: var(--bad); }
+.current[data-state="down"] .i { color: var(--bad); }
+.current strong { display: block; font-size: 1.25rem; }
+.current p { margin: 4px 0 0; }
+.muted { color: var(--muted); font-size: .92rem; }
+.components { list-style: none; padding: 0; margin: 12px 0 0; border: 1px solid var(--line); border-radius: 12px; }
+.components li { display: flex; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.components li:last-child { border-bottom: 0; }
+.incidents { list-style: none; padding: 0; margin: 0; }
+.incident { border: 1px solid var(--line); border-left-width: 4px; border-radius: 10px; padding: 12px 14px; margin: 0 0 12px; overflow-wrap: anywhere; }
+.incident[data-impact="minor"] { border-left-color: var(--warn); }
+.incident[data-impact="major"] { border-left-color: var(--bad); }
+.incident-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; align-items: baseline; }
+.incident h3 { margin: 0; font-size: 1.05rem; }
+.badge { font-size: .8rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: var(--soft); border: 1px solid var(--line); }
+.meta { color: var(--muted); font-size: .9rem; margin: 4px 0 8px; }
+.updates { list-style: none; padding: 0; margin: 0; }
+.updates li { padding: 8px 0 0; border-top: 1px solid var(--line); }
+.updates time { font-size: .85rem; color: var(--muted); }
+.updates p { margin: 2px 0 8px; }
+.notice { padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; }
+footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 4px 12px; padding-top: 8px; padding-bottom: 8px; }
+footer a { display: inline-flex; align-items: center; min-height: 44px; }

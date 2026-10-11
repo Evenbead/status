@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data:; connect-src 'self' https://api.evenbead.com; manifest-src 'self'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Evenbead status</title>
+<meta name="description" content="Live status of the Evenbead API, MCP server and web app, and incident notes.">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32-on-light.png" type="image/png" sizes="32x32" media="(prefers-color-scheme: light)">
+<link rel="icon" href="/favicon-32-on-dark.png" type="image/png" sizes="32x32" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#14181a" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Evenbead">
+<meta property="og:title" content="Evenbead status">
+<meta property="og:description" content="Live status of the Evenbead API, MCP server and web app, and incident notes.">
+<meta property="og:url" content="https://status.evenbead.com/">
+<meta property="og:image" content="https://status.evenbead.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://status.evenbead.com/og-image.png">
+<meta name="eb-health-url" content="https://api.evenbead.com/healthz">
+<link rel="stylesheet" href="status.css">
+<script src="status.js" defer></script>
+</head>
+<body>
+<header><div class="wrap">
+  <a class="brand" href="https://evenbead.com"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" class="logo" aria-hidden="true" focusable="false"><g  transform="translate(0 0)"><path d="M52 24 H20 V104 H52 M20 64 H46" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><path d="M64 16 V112" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M76 24 H90 a20 20 0 0 1 0 40 H76 M76 64 H94 a20 20 0 0 1 0 40 H76" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/><circle cx="64" cy="48" r="9" fill="currentColor"/><circle cx="64" cy="80" r="9" fill="currentColor"/></g></svg><span>Evenbead <small>status</small></span></a>
+  <nav aria-label="Links"><a href="https://docs.evenbead.com">Docs</a></nav>
+</div></header>
+<main class="wrap">
+  <h1>System status</h1>
+  <div id="js-only" hidden>
+    <section class="current" id="current" data-state="checking" aria-live="polite" aria-labelledby="current-label">
+      <span data-icon="ok" hidden><svg class="i" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span><span data-icon="degraded" hidden><svg class="i" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span><span data-icon="down" hidden><svg class="i" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></span><span data-icon="checking"><svg class="i" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+      <div><strong id="current-label">Checking</strong><p id="current-detail">Asking the API how it is doing.</p><p class="muted" id="checked"></p></div>
+    </section>
+    <ul class="components" aria-label="What this covers">
+      <li><span>REST API</span><span class="muted">api.evenbead.com</span></li>
+      <li><span>MCP server</span><span class="muted">api.evenbead.com/mcp</span></li>
+      <li><span>Web app</span><span class="muted">app.evenbead.com</span></li>
+    </ul>
+    <h2 id="active-h">Open incidents</h2>
+    <ul class="incidents" id="active-list" aria-labelledby="active-h"></ul>
+    <p class="muted" id="active-empty">Loading incident notes.</p>
+    <h2 id="recent-h">Recent incidents</h2>
+    <ul class="incidents" id="recent-list" aria-labelledby="recent-h"></ul>
+    <p class="muted" id="recent-empty" hidden></p>
+    <p class="muted" id="updated"></p>
+  </div>
+  <noscript><div class="notice"><p>This page checks the service from your browser and needs JavaScript for that. Incident notes are in <a href="incidents.json">incidents.json</a>. Questions: support@evenbead.com.</p></div></noscript>
+</main>
+<footer><div class="wrap"><a href="https://evenbead.com">evenbead.com</a><a href="https://docs.evenbead.com">Developer docs</a><a href="mailto:support@evenbead.com">support@evenbead.com</a></div></footer>
+</body>
+</html>
