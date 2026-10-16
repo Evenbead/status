@@ -1,4 +1,4 @@
-/* Evenbead status page (status.evenbead.com). Brand: brand/BRAND.md. Mobile first; light and dark from the system. */
+/* Evenbead status page (status.evenbead.com). Brand: brand/BRAND.md. Mobile first; light by default, dark when the reader chose it (ADR-0099). */
 @font-face {
   font-family: "Plus Jakarta Sans";
   src: url("fonts/PlusJakartaSans-Variable.ttf") format("truetype");
@@ -9,11 +9,12 @@
 :root {
   --ink: #14181a; --paper: #ffffff; --muted: #56615c; --line: #dfe4e1; --soft: #f4f6f5;
   --accent: #17684a; --ok-soft: #e4f1eb; --warn: #7f5300; --warn-soft: #fbf1df; --bad: #a8322d; --bad-soft: #fbe9e8;
-  color-scheme: light dark;
+  color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root { --ink: #f2f4f3; --paper: #14181a; --muted: #a6b0ab; --line: #2c3431; --soft: #1b2120;
-    --accent: #6fcf9f; --ok-soft: #1b3229; --warn: #f0b75a; --warn-soft: #33290f; --bad: #ff8f86; --bad-soft: #3a1f1d; }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #f2f4f3; --paper: #14181a; --muted: #a6b0ab; --line: #2c3431; --soft: #1b2120;
+  --accent: #6fcf9f; --ok-soft: #1b3229; --warn: #f0b75a; --warn-soft: #33290f; --bad: #ff8f86; --bad-soft: #3a1f1d;
 }
 * { box-sizing: border-box; }
 body { margin: 0; font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif; line-height: 1.55; color: var(--ink); background: var(--paper); }
@@ -60,3 +61,4 @@ h2 { font-size: 1.2rem; margin: 32px 0 10px; }
 footer { border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 4px 12px; padding-top: 8px; padding-bottom: 8px; }
 footer a { display: inline-flex; align-items: center; min-height: 44px; }
+footer .foot-theme { margin-left: auto; }   /* the colour theme toggle (ADR-0099) */

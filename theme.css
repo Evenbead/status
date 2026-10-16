@@ -1,0 +1,33 @@
+/* Evenbead colour theme toggle (ADR-0099 as amended; markup from brand/theme/theme.ts, behaviour in theme.js). One icon button, no
+   border, no pill, no background: a Lucide moon while the page is light (press: dark), a Lucide sun while it is dark (press: light).
+   The icon takes the text colour around it (like the header and menu icons next to it; a surface may set --theme-toggle-ink) and
+   --theme-toggle-size (20px by default). Hover and focus turn it the accent colour; keyboard focus also draws a ring (focus-visible
+   only). The hit area is 44px square. A public page's toggle needs JS (theme.js): without it (no data-theme on <html>) it is hidden
+   and the page stays light.
+   .icon-link / .icon-row: the public footers' X, LinkedIn and YouTube links (brand/theme/social.ts) in one row with the toggle as
+   the last item; the links look and behave exactly like the toggle. */
+/* The app's one-button form: never boxed, even where a surface styles forms inside an open <details> (the account menu). */
+.theme-toggle-form, details[open] form.theme-toggle-form { display: inline-flex; flex: none; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.theme-toggle, .icon-link {
+  appearance: none; -webkit-appearance: none; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box;
+  width: 44px; height: 44px; min-width: 44px; min-height: 44px; margin: 0; padding: 0; border: 0; border-radius: 8px; flex: none;
+  background: transparent; box-shadow: none; color: var(--theme-toggle-ink, inherit); font: inherit; line-height: 0; cursor: pointer;
+  text-decoration: none; transition: color 120ms ease, opacity 120ms ease;
+}
+.theme-toggle:hover, .theme-toggle:focus-visible, .icon-link:hover, .icon-link:focus-visible { color: var(--accent, currentColor); background: transparent; }
+.theme-toggle:active, .icon-link:active { opacity: 0.7; }
+.theme-toggle:focus, .icon-link:focus { outline: none; }
+.theme-toggle:focus-visible, .icon-link:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 2px; }
+.icon-row { display: flex; flex-wrap: nowrap; align-items: center; gap: 0.25rem; list-style: none; margin: 0; padding: 0; }
+.icon-row > li { display: flex; margin: 0; padding: 0; }
+.theme-toggle .theme-icon, .icon-link .theme-icon { width: var(--theme-toggle-size, 20px); height: var(--theme-toggle-size, 20px); flex: none; pointer-events: none; }
+.theme-toggle .theme-icon-sun { display: none; }
+:root[data-theme="dark"] .theme-toggle .theme-icon-moon { display: none; }
+:root[data-theme="dark"] .theme-toggle .theme-icon-sun { display: block; }
+html:not([data-theme]) .theme-toggle[type="button"] { display: none; }
+@media (prefers-reduced-motion: reduce) { .theme-toggle, .icon-link { transition: none; } }
+@media (forced-colors: active) {
+  .theme-toggle { color: ButtonText; }
+  .icon-link { color: LinkText; }
+  .theme-toggle:focus-visible, .icon-link:focus-visible { outline-color: Highlight; }
+}
